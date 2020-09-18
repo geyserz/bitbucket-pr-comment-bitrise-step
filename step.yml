@@ -79,7 +79,7 @@ inputs:
         This is the repo's name in the repo's URL
       is_expand: true
       is_required: true
-  - bitbucket_pr_id: $BITBUCKET_PULL_REQUEST
+  - bitbucket_pr_id: $BITRISE_PULL_REQUEST
     opts:
       category: Config
       title: "BitBucket PR Id"
