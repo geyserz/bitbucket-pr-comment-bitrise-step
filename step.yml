@@ -1,0 +1,112 @@
+title: "Add Bitbucket PR Comment Step"
+summary: Posts a comment to a Bitbucket pull request
+description: |-
+  Posts a comment to a Bitbucket pull request
+
+  Uses Basic Auth over HTTPS.  You need to supply a username and password, and the host and port of your instance.
+
+website: https://github.com/Waracle/bitbucket-pr-comment-bitrise-step
+source_code_url: https://github.com/Waracle/bitbucket-pr-comment-bitrise-step
+support_url: https://github.com/Waracle/bitbucket-pr-comment-bitrise-step/issues
+host_os_tags:
+  - osx-10.10
+project_type_tags:
+  - ios
+  - android
+  - xamarin
+type_tags:
+  - notification
+is_requires_admin_user: true
+is_always_run: false
+is_skippable: true
+deps:
+  brew:
+  - name: git
+  - name: wget
+  - name: jq
+  apt_get:
+  - name: git
+  - name: wget
+  - name: jq
+run_if: ""
+inputs:
+  - bitbucket_url: $BITBUCKET_HOST
+    opts:
+      category: Config
+      title: "BitBucket API Host"
+      summary: "BitBucket API Host"
+      description: |-
+        BitBucket API Host (Ex: api.bitbucket.org)
+      is_expand: true
+      is_required: true
+
+  - bitbucket_user: $BITBUCKET_USER
+    opts:
+      category: Config
+      title: "BitBucket User"
+      summary: The user that will author the comment.  Needs to have REST API permissions and appropriate scope.
+      description: |-
+        The user to use to call the API
+      is_expand: true
+      is_required: true
+
+  - bitbucket_password: $BITBUCKET_PASSWORD
+    opts:
+      category: Config
+      title: "BitBucket Password"
+      summary: The app password to use to call the API
+      description: |-
+        The app password to use to call the API
+      is_expand: true
+      is_required: true
+
+  - bitbucket_owner: $BITRISEIO_GIT_REPOSITORY_OWNER
+    opts:
+      category: Config
+      title: "BitBucket Owner/Workspace"
+      summary: The BitBucket workspace for the repo containing the PR
+      description: |-
+        This is the name of your company in the repo's URL
+      is_expand: true
+      is_required: true
+
+  - bitbucket_repo_slug: $BITRISEIO_GIT_REPOSITORY_SLUG
+    opts:
+      category: Config
+      title: "BitBucket Repo Slug"
+      summary: The slug for the repository
+      description: |-
+        This is the repo's name in the repo's URL
+      is_expand: true
+      is_required: true
+  - bitbucket_pr_id: $BITBUCKET_PULL_REQUEST
+    opts:
+      category: Config
+      title: "BitBucket PR Id"
+      summary: The id of the pull request
+      description: |-
+        This is the PR id in the pull request's URL
+      is_expand: true
+      is_required: true
+
+  - bitbucket_pr_comment: |-
+      * This is a sample comment from BitRise posted by build $BITRISE_BUILD_NUMBER
+    opts:
+      category: Config
+      summary: "Comment contents"
+      summary: "The content of the comment that will be posted"
+      description: |-
+        A markdown comment to post to the pull request
+      is_expand: true
+      is_required: true
+  - is_debug: "no"
+    opts:
+      category: Debug
+      description: |
+        If debug=yes the step will print debug infos about
+        the working dir, tmp file path, exit code, etc.
+      title: Debug print?
+      value_options:
+      - "no"
+      - "yes"
+outputs:

@@ -1,0 +1,4 @@
+.bitrise*
+/.env
+/.envstore.yml
+_tmp/
