@@ -66,7 +66,7 @@ if [[ "${bitbucket_pr_comment}" == "" ]]; then
 	exit 1
 fi
 
-res="$(jq -n -r '{content: { raw: env.bitbucket_pr_comment } }' | curl --write-out %{response_code} --output /dev/null --user "${bitbucket_user}:${bitbucket_password}" -X POST -H "Content-Type: application/json" -d @- https://${bitbucket_url}/2.0/repositories/$bitbucket_owner/$bitbucket_repo_slug/pullrequests/$bitbucket_pr_id/comments)"
+res="$(jq -n -r '{content: { raw: env.bitbucket_pr_comment, markup: "markdown" } }' | curl --write-out %{response_code} --output /dev/null --user "${bitbucket_user}:${bitbucket_password}" -X POST -H "Content-Type: application/json" -d @- https://${bitbucket_url}/2.0/repositories/$bitbucket_owner/$bitbucket_repo_slug/pullrequests/$bitbucket_pr_id/comments)"
 
 if test "$res" == "201"; then
     echo
